@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-09-15T18:10:08.474533+08:00 by Eclipse SUMO sumo 1.27.1
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="F:\work\Internship-大模型\software\Claude\sumo_dtt\sumo_dtt_ecdsa\scenario\simulate_net.xml"/>
+        <route-files value="F:\work\Internship-大模型\software\Claude\sumo_dtt\sumo_dtt_ecdsa\scenario\crash_accident.rou.xml"/>
+    </input>
+
+    <output>
+        <collision-output value="F:\work\Internship-大模型\software\Claude\sumo_dtt\sumo_dtt_ecdsa\scenario\../vanet_output/collision_output.xml"/>
+        <statistic-output value="F:\work\Internship-大模型\software\Claude\sumo_dtt\sumo_dtt_ecdsa\scenario\../vanet_output/statistics.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="900"/>
+        <step-length value="0.1"/>
+    </time>
+
+    <processing>
+        <lateral-resolution value="0.8"/>
+        <ignore-junction-blocker value="10"/>
+        <collision.action value="warn"/>
+        <collision.stoptime value="9999"/>
+        <collision.check-junctions value="true"/>
+        <collision.mingap-factor value="0"/>
+        <time-to-teleport value="-1"/>
+        <emergencydecel.warning-threshold value="1.0"/>
+    </processing>
+
+    <routing>
+        <device.rerouting.probability value="0.5"/>
+    </routing>
+
+    <report>
+        <no-warnings value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="64698"/>
+    </traci_server>
+
+    <random_number>
+        <seed value="1321"/>
+    </random_number>
+
+    <gui_only>
+        <gui-settings-file value="F:\work\Internship-大模型\software\Claude\sumo_dtt\sumo_dtt_ecdsa\scenario\gui_settings.xml"/>
+        <start value="true"/>
+    </gui_only>
+
+</sumoConfiguration>
+-->
+
+<collisions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/collision_file.xsd">
+    <collision time="112.40" type="junction" lane=":J1_5_0" pos="5.40" collider="flow_east_left_early.0" victim="flow_north_left_late.0" colliderType="normal_vehicle" victimType="normal_vehicle" colliderSpeed="13.00" victimSpeed="10.69" colliderFront="7.73,1.07" colliderBack="12.19,1.68" victimFront="7.86,-0.42" victimBack="3.85,1.46"/>
+</collisions>

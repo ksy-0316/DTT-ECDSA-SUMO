@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<viewsettings>
+    <viewport y="0" x="0" zoom="100"/>
+    <delay value="50"/>
+    <scheme name="standard">
+        <vehicles vehicleMode="0" vehicleQuality="2" minVehicleSize="1" vehicleExaggeration="1" 
+                  showBlinker="true" drawMinGap="false">
+            <colorScheme name="given/assigned vehicle color"/>
+        </vehicles>
+        <junctions junctionMode="0" junctionSize="1">
+            <colorScheme name="uniform">
+                <entry color="gray" name="default"/>
+            </colorScheme>
+        </junctions>
+    </scheme>
+</viewsettings>

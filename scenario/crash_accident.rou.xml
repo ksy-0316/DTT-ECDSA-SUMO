@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+VANET车祸场景路由文件 (v5.0 动态选择版)
+场景描述：
+- 前100秒：东南西北四个方向正常通行
+- 100秒后：红灯时，东边左转车道等红灯的第一辆车变为红车(闯红灯)
+- 红车闯红灯与南北方向直行车辆在路口相撞
+- 只有与红车相撞的车辆才标记为黄色
+- 碰撞后交通管制：
+  * 允许通行(蓝色): 北到南直行、东到西直行、西到北左转、所有右转
+  * 禁止通行(灰色): 其他方向
+- 从路口附近随机选择4辆车进行数据上报(绿色)
+- 仿真总时长: 900秒
+
+车道规则：
+- lane 0 = 右转道
+- lane 1 = 直行道  
+- lane 2 = 左转道
+
+颜色说明：
+- 红色: 闯红灯车辆 (动态选择的东边左转车道等红灯车辆)
+- 黄色: 被撞车辆 (碰撞发生后才标记)
+- 绿色: 上报车辆（碰撞后随机选定，共4辆）
+- 蓝色: 允许通行车辆
+- 灰色: 禁止通行车辆
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    
+    <!-- 车辆类型定义 -->
+    <!-- 普通车辆 - 灰色 (将作为潜在目击者或被选为碰撞车辆) -->
+    <vType id="normal_vehicle" accel="3.0" decel="5.0" maxSpeed="13.89" minGap="2.5" 
+           color="0.5,0.5,0.5" length="4.5" sigma="0.5"/>
+
+    <!-- 路线定义 -->
+    <!-- 东向 (E2入口) -->
+    <route id="route_east_to_south" edges="E2 -E3"/>  <!-- 左转 lane 2 -->
+    <route id="route_east_to_west" edges="E2 -E0"/>   <!-- 直行 lane 1 -->
+    <route id="route_east_to_north" edges="E2 -E1"/>  <!-- 右转 lane 0 -->
+    
+    <!-- 南向 (E3入口) -->
+    <route id="route_south_to_north" edges="E3 -E1"/> <!-- 直行 lane 1 -->
+    <route id="route_south_to_west" edges="E3 -E0"/>  <!-- 左转 lane 2 -->
+    <route id="route_south_to_east" edges="E3 -E2"/>  <!-- 右转 lane 0 -->
+    
+    <!-- 西向 (E0入口) -->
+    <route id="route_west_to_east" edges="E0 -E2"/>   <!-- 直行 lane 1 -->
+    <route id="route_west_to_north" edges="E0 -E1"/>  <!-- 左转 lane 2 -->
+    <route id="route_west_to_south" edges="E0 -E3"/>  <!-- 右转 lane 0 -->
+    
+    <!-- 北向 (E1入口) -->
+    <route id="route_north_to_south" edges="E1 -E3"/> <!-- 直行 lane 1 -->
+    <route id="route_north_to_west" edges="E1 -E0"/>  <!-- 右转 lane 0 -->
+    <route id="route_north_to_east" edges="E1 -E2"/>  <!-- 左转 lane 2 -->
+
+    <!-- ========== 前100秒的背景交通流 (确保四个方向都有车辆正常通过) ========== -->
+    <!-- 东向各方向 -->
+    <flow id="flow_east_straight_early" type="normal_vehicle" begin="0" end="100" 
+          probability="0.25" departLane="1" departSpeed="random" route="route_east_to_west"/>
+    <flow id="flow_east_left_early" type="normal_vehicle" begin="0" end="100" 
+          probability="0.15" departLane="2" departSpeed="random" route="route_east_to_south"/>
+    <flow id="flow_east_right_early" type="normal_vehicle" begin="0" end="100" 
+          probability="0.10" departLane="0" departSpeed="random" route="route_east_to_north"/>
+    
+    <!-- 西向各方向 -->
+    <flow id="flow_west_straight_early" type="normal_vehicle" begin="0" end="100" 
+          probability="0.25" departLane="1" departSpeed="random" route="route_west_to_east"/>
+    <flow id="flow_west_left_early" type="normal_vehicle" begin="0" end="100" 
+          probability="0.15" departLane="2" departSpeed="random" route="route_west_to_north"/>
+    <flow id="flow_west_right_early" type="normal_vehicle" begin="0" end="100" 
+          probability="0.10" departLane="0" departSpeed="random" route="route_west_to_south"/>
+    
+    <!-- 南向各方向 -->
+    <flow id="flow_south_straight_early" type="normal_vehicle" begin="0" end="100" 
+          probability="0.25" departLane="1" departSpeed="random" route="route_south_to_north"/>
+    <flow id="flow_south_left_early" type="normal_vehicle" begin="0" end="100" 
+          probability="0.15" departLane="2" departSpeed="random" route="route_south_to_west"/>
+    <flow id="flow_south_right_early" type="normal_vehicle" begin="0" end="100" 
+          probability="0.10" departLane="0" departSpeed="random" route="route_south_to_east"/>
+    
+    <!-- 北向各方向 -->
+    <flow id="flow_north_straight_early" type="normal_vehicle" begin="0" end="100" 
+          probability="0.25" departLane="1" departSpeed="random" route="route_north_to_south"/>
+    <flow id="flow_north_left_early" type="normal_vehicle" begin="0" end="100" 
+          probability="0.15" departLane="2" departSpeed="random" route="route_north_to_east"/>
+    <flow id="flow_north_right_early" type="normal_vehicle" begin="0" end="100" 
+          probability="0.10" departLane="0" departSpeed="random" route="route_north_to_west"/>
+
+    <!-- ========== 100秒后的背景交通流 (继续产生，部分车辆会被动态选为碰撞车辆) ========== -->
+    <!-- 东向各方向 - 增加左转车辆概率，确保有车辆在等红灯 -->
+    <flow id="flow_east_straight_late" type="normal_vehicle" begin="100" end="900" 
+          probability="0.15" departLane="1" departSpeed="random" route="route_east_to_west"/>
+    <flow id="flow_east_left_late" type="normal_vehicle" begin="100" end="900" 
+          probability="0.20" departLane="2" departSpeed="random" route="route_east_to_south"/>
+    <flow id="flow_east_right_late" type="normal_vehicle" begin="100" end="900" 
+          probability="0.06" departLane="0" departSpeed="random" route="route_east_to_north"/>
+    
+    <!-- 西向各方向 -->
+    <flow id="flow_west_straight_late" type="normal_vehicle" begin="100" end="900" 
+          probability="0.15" departLane="1" departSpeed="random" route="route_west_to_east"/>
+    <flow id="flow_west_left_late" type="normal_vehicle" begin="100" end="900" 
+          probability="0.08" departLane="2" departSpeed="random" route="route_west_to_north"/>
+    <flow id="flow_west_right_late" type="normal_vehicle" begin="100" end="900" 
+          probability="0.06" departLane="0" departSpeed="random" route="route_west_to_south"/>
+    
+    <!-- 南向各方向 - 增加直行车辆概率作为潜在被撞车辆 -->
+    <flow id="flow_south_straight_late" type="normal_vehicle" begin="100" end="900" 
+          probability="0.20" departLane="1" departSpeed="random" route="route_south_to_north"/>
+    <flow id="flow_south_left_late" type="normal_vehicle" begin="100" end="900" 
+          probability="0.08" departLane="2" departSpeed="random" route="route_south_to_west"/>
+    <flow id="flow_south_right_late" type="normal_vehicle" begin="100" end="900" 
+          probability="0.06" departLane="0" departSpeed="random" route="route_south_to_east"/>
+    
+    <!-- 北向各方向 - 增加直行车辆概率作为潜在被撞车辆 -->
+    <flow id="flow_north_straight_late" type="normal_vehicle" begin="100" end="900" 
+          probability="0.20" departLane="1" departSpeed="random" route="route_north_to_south"/>
+    <flow id="flow_north_left_late" type="normal_vehicle" begin="100" end="900" 
+          probability="0.08" departLane="2" departSpeed="random" route="route_north_to_east"/>
+    <flow id="flow_north_right_late" type="normal_vehicle" begin="100" end="900" 
+          probability="0.06" departLane="0" departSpeed="random" route="route_north_to_west"/>
+
+</routes>

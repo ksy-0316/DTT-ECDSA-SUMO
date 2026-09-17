@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+SUMO + DTT-ECDSA 车祸上报仿真配置
+================================
+与参考项目的区别：
+  * 去掉了 fcd-output / full-output 两个逐步长全量输出。它们在 900 s / 0.1 s
+    的仿真里会生成数百 MB 文件，批量跑 x 轮时是主要开销；确需轨迹时把下面
+    被注释的两行打开即可。
+  * 保留碰撞输出与统计输出，用于核对事故确实发生。
+  * 仿真步长、碰撞参数由 run_simulation.py 在命令行再次显式给出，以保证
+    批量模式与单次模式完全一致。
+-->
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="simulate_net.xml"/>
+        <route-files value="crash_accident.rou.xml"/>
+    </input>
+
+    <output>
+        <collision-output value="../vanet_output/collision_output.xml"/>
+        <statistic-output value="../vanet_output/statistics.xml"/>
+        <!-- 需要完整轨迹时取消下面两行的注释（文件很大） -->
+        <!-- <fcd-output value="../vanet_output/fcd_output.xml"/> -->
+        <!-- <full-output value="../vanet_output/full_output.xml"/> -->
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="900"/>
+        <step-length value="0.1"/>
+    </time>
+
+    <processing>
+        <collision.check-junctions value="true"/>
+        <collision.action value="warn"/>
+        <collision.mingap-factor value="0"/>
+        <collision.stoptime value="9999"/>
+        <ignore-junction-blocker value="10"/>
+        <lateral-resolution value="0.8"/>
+        <emergencydecel.warning-threshold value="1.0"/>
+        <time-to-teleport value="-1"/>
+    </processing>
+
+    <routing>
+        <device.rerouting.probability value="0.5"/>
+    </routing>
+
+    <report>
+        <no-warnings value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <gui_only>
+        <gui-settings-file value="gui_settings.xml"/>
+        <start value="true"/>
+    </gui_only>
+
+</configuration>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-09-15T18:10:08.474876+08:00 by Eclipse SUMO sumo 1.27.1
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="F:\work\Internship-大模型\software\Claude\sumo_dtt\sumo_dtt_ecdsa\scenario\simulate_net.xml"/>
+        <route-files value="F:\work\Internship-大模型\software\Claude\sumo_dtt\sumo_dtt_ecdsa\scenario\crash_accident.rou.xml"/>
+    </input>
+
+    <output>
+        <collision-output value="F:\work\Internship-大模型\software\Claude\sumo_dtt\sumo_dtt_ecdsa\scenario\../vanet_output/collision_output.xml"/>
+        <statistic-output value="F:\work\Internship-大模型\software\Claude\sumo_dtt\sumo_dtt_ecdsa\scenario\../vanet_output/statistics.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="900"/>
+        <step-length value="0.1"/>
+    </time>
+
+    <processing>
+        <lateral-resolution value="0.8"/>
+        <ignore-junction-blocker value="10"/>
+        <collision.action value="warn"/>
+        <collision.stoptime value="9999"/>
+        <collision.check-junctions value="true"/>
+        <collision.mingap-factor value="0"/>
+        <time-to-teleport value="-1"/>
+        <emergencydecel.warning-threshold value="1.0"/>
+    </processing>
+
+    <routing>
+        <device.rerouting.probability value="0.5"/>
+    </routing>
+
+    <report>
+        <no-warnings value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="64698"/>
+    </traci_server>
+
+    <random_number>
+        <seed value="1321"/>
+    </random_number>
+
+    <gui_only>
+        <gui-settings-file value="F:\work\Internship-大模型\software\Claude\sumo_dtt\sumo_dtt_ecdsa\scenario\gui_settings.xml"/>
+        <start value="true"/>
+    </gui_only>
+
+</sumoConfiguration>
+-->
+
+<statistics xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/statistic_file.xsd">
+    <performance clockBegin="451624.20" clockEnd="451625.97" clockDuration="1.76" traciDuration="0.99" realTimeFactor="66.61" vehicleUpdatesPerSecond="24819.16" personUpdatesPerSecond="0.00" begin="0.00" end="117.50" duration="117.50"/>
+    <vehicles loaded="224" inserted="137" running="39" waiting="87"/>
+    <teleports total="0" jam="0" yield="0" wrongLane="0"/>
+    <safety collisions="1" emergencyStops="0" emergencyBraking="8"/>
+    <persons loaded="0" running="0" jammed="0"/>
+    <personTeleports total="0" abortWait="0" wrongDest="0"/>
+</statistics>

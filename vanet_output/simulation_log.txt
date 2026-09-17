@@ -1,0 +1,117 @@
+SUMO + DTT-ECDSA 车祸上报仿真日志
+开始时间: 2026-09-15T18:08:21.936223
+==============================================================================
+
+==============================================================================
+SUMO + DTT-ECDSA  车祸数据上报仿真
+==============================================================================
+场景配置: F:\work\Internship-大模型\software\Claude\sumo_dtt\sumo_dtt_ecdsa\scenario\crash_simu.sumocfg
+注册车辆数 n = 20，门限 t = TMC 动态决定
+RSU 位于路口中心，通信半径 182 m；注册开放于 95 s，事故选车于 100 s
+通信模型: IEEE 802.11p @ 5.9 GHz / 10 MHz, Ptx=20 dBm, N0=-95 dBm, 路径损耗指数 n=2.75, 阴影 sigma=3.0 dB, 链路余量 6 dB, 最大通信距离 182 m, 协议栈开销 1.0 ms/帧; 有线回程 2 跳 x (0.5 ms + 100 Mbps)
+[    0.0s] 追踪搜索空间上界 C(20,8) = 125,970 （严格穷举，约 3 us/子集，最坏 0.4 s）
+
+[    0.0s] 启动 SUMO: sumo -c F:\work\Internship-大模型\software\Claude\sumo_dtt\sumo_dtt_ecdsa\scenario\crash_simu.sumocfg --collision.check-junctions true --collision.action warn --collision.mingap-factor 0 --collision.stoptime 9999 --step-length 0.1 --no-warnings true --no-step-log true --time-to-teleport -1 --seed 3
+[   50.0s] 仿真进行中: 车辆 37 辆, 注册 0/20, 状态 初始化(注册)中
+[   95.0s] RSU 开放注册服务，通信半径 182 m，登记前 20 辆车
+[   95.0s] [注册] 1/20  flow_east_left_early.0 (d= 14.1 m)
+[   95.2s] [注册] 5/20  flow_east_left_early.4 (d= 38.1 m)
+[   95.4s] [注册] 10/20  flow_east_straight_early.2 (d= 26.5 m)
+[   95.7s] [注册] 15/20  flow_north_right_early.9 (d= 19.4 m)
+[   95.9s] [注册] 20/20  flow_south_left_early.10 (d= 43.2 m)
+[   95.9s] 
+[   95.9s] 系统初始化阶段已完成  (20 辆车完成注册)
+[   95.9s]     初始化: 计算 42.279 ms + 通信 64.827 ms = 107.106 ms
+[  100.0s] 开始挑选事故车辆（闯红灯车 + 南北直行车）
+[  100.0s] 仿真进行中: 车辆 36 辆, 注册 20/20, 状态 初始化完成, 等待事故
+[  112.0s] 事故车辆已选定: 闯红灯车 flow_east_left_early.0 (E2_2 左转道, 红灯), 直行车 flow_south_straight_early.13
+[  112.7s] 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+[  112.7s] 检测到交通事故  位置 (5.02, -2.82)  道路 East-Approach 车道 2
+[  112.7s]     涉事车辆: ['flow_east_left_early.0', 'flow_south_straight_early.13']
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+[  112.7s] 事故后交通管制: 放行 20 辆, 禁行 15 辆 (80 m 范围内)
+[  117.7s] 
+[  117.7s] TMC 门限决策: 严重程度 moderate -> t = 4   (TMC 依据事故严重程度 'moderate' 动态给出)
+[  117.7s] 候选目击车辆 15 辆(已注册且在 80 m 内)，从中随机抽取 4 辆签名
+[  117.7s] 签名生成阶段已完成
+[  117.7s]     签名生成: 计算 7.681 ms + 通信 19.393 ms = 27.074 ms
+[  117.7s] 签名聚合阶段已完成
+[  117.7s]     签名聚合: 计算 2.733 ms + 通信 4.087 ms = 6.819 ms
+[  117.7s]     公开验证 (推论 1): 通过
+[  117.7s] 追踪开始: 严格穷举 C(20,4) = 4,845 个候选子集
+[  117.7s] 签名追踪阶段已完成
+[  117.7s]     签名追踪: 计算 10.389 ms + 通信 3.150 ms = 13.539 ms
+[  117.7s] 
+==============================================================================
+阶段完成情况
+==============================================================================
+[阶段1] 系统初始化阶段已完成
+[阶段2] 签名生成阶段已完成
+[阶段3] 签名聚合阶段已完成
+[阶段4] 签名追踪阶段已完成
+[  117.7s] 
+==============================================================================
+追踪结果
+==============================================================================
+注册车辆数 n        : 20
+门限值     t        : 4   (TMC 依据事故严重程度 'moderate' 动态给出)
+事故严重程度        : moderate
+候选目击车辆        : 15 辆（已注册且在事故点 80 m 内）
+搜索空间 C(n,t)     : 4,845
+实际检验子集数      : 4,436
+签名公开验证        : 通过
+追踪是否成功        : 成功
+真实签名车辆集合    : [8, 11, 12, 17]
+追踪还原车辆集合    : [8, 11, 12, 17]
+追踪结果是否正确    : 正确
+
+追踪出的签名车辆明细：
+    索引  车辆ID      车牌        SUMO车辆                        距RSU(m)
+    8     VEH-008     粤T969HL    flow_east_straight_early.1          20.6
+    11    VEH-011     沪R715CP    flow_east_straight_early.4          38.4
+    12    VEH-012     渝A466DB    flow_east_straight_early.5          44.4
+    17    VEH-017     豫S698DV    flow_north_straight_early.8         14.9
+[  117.7s] 
+==============================================================================
+时间统计（计算 + 实体间通信，单位 ms）
+==============================================================================
+通信模型: IEEE 802.11p @ 5.9 GHz / 10 MHz, Ptx=20 dBm, N0=-95 dBm, 路径损耗指数 n=2.75, 阴影 sigma=3.0 dB, 链路余量 6 dB, 最大通信距离 182 m, 协议栈开销 1.0 ms/帧; 有线回程 2 跳 x (0.5 ms + 100 Mbps)
+    初始化: 计算 42.279 ms + 通信 64.827 ms = 107.106 ms
+    签名生成: 计算 7.681 ms + 通信 19.393 ms = 27.074 ms
+    签名聚合: 计算 2.733 ms + 通信 4.087 ms = 6.819 ms
+    签名追踪: 计算 10.389 ms + 通信 3.150 ms = 13.539 ms
+
+    初始化                :    107.106 ms
+    签名生成 + 签名聚合   :     33.893 ms
+    追踪                  :     13.539 ms
+    合计                  :    154.538 ms
+[  117.7s] 
+上报的消息 m：
+    {
+      "Message Type": "EMERGENCY_HAZARD_WARNING",
+      "Message ID": "VANETs-HW-20260915-021",
+      "Timestamp": "2026-09-15T10:08:23.642Z",
+      "Location": {
+        "latitude": -2.82,
+        "longitude": 5.02,
+        "road": "East-Approach",
+        "lane": 2
+      },
+      "Event Details": {
+        "cause": "red_light_running_collision",
+        "severity": "moderate",
+        "sim_time_s": 112.7,
+        "involved": [
+          "flow_east_left_early.0",
+          "flow_south_straight_early.13"
+        ],
+        "blocked": 15,
+        "witnesses": 15,
+        "speed_kmh": 0.2
+      }
+    }
+[  117.7s] 
+事故上报结果: F:\work\Internship-大模型\software\Claude\sumo_dtt\sumo_dtt_ecdsa\vanet_output\crash_report.json
+时间统计报告: F:\work\Internship-大模型\software\Claude\sumo_dtt\sumo_dtt_ecdsa\vanet_output\timing_report.json
+仿真日志    : F:\work\Internship-大模型\software\Claude\sumo_dtt\sumo_dtt_ecdsa\vanet_output\simulation_log.txt

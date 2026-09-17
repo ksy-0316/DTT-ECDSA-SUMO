@@ -1,0 +1,128 @@
+{
+  "generated_at": "2026-09-15T18:08:23.751867",
+  "scenario": {
+    "sim_time_s": 112.7,
+    "location": [
+      5.015786653369456,
+      -2.815892070845555
+    ],
+    "road": "East-Approach",
+    "lane": 2,
+    "severity": "moderate",
+    "red_light_runner": "flow_east_left_early.0",
+    "struck_vehicles": [
+      "flow_south_straight_early.13"
+    ],
+    "vehicles_involved": [
+      "flow_east_left_early.0",
+      "flow_south_straight_early.13"
+    ],
+    "blocked_vehicles": 15,
+    "witness_candidates": [
+      "flow_east_left_early.1",
+      "flow_east_left_early.2",
+      "flow_east_left_early.3",
+      "flow_east_left_early.4",
+      "flow_east_left_early.5",
+      "flow_east_straight_early.0",
+      "flow_east_straight_early.1",
+      "flow_east_straight_early.2",
+      "flow_east_straight_early.3",
+      "flow_east_straight_early.4",
+      "flow_east_straight_early.5",
+      "flow_north_straight_early.10",
+      "flow_north_straight_early.11",
+      "flow_north_straight_early.8",
+      "flow_north_straight_early.9"
+    ],
+    "description": "东向南左转车辆 flow_east_left_early.0 闯红灯进入路口，与 1 辆车相撞(flow_south_straight_early.13)，路口部分方向中断。"
+  },
+  "scheme": {
+    "curve": "secp256r1",
+    "n_registered": 20,
+    "t_threshold": 4,
+    "threshold_source": "TMC 依据事故严重程度 'moderate' 动态给出",
+    "search_space_C_n_t": 4845,
+    "signature_verified": true
+  },
+  "message": {
+    "Message Type": "EMERGENCY_HAZARD_WARNING",
+    "Message ID": "VANETs-HW-20260915-021",
+    "Timestamp": "2026-09-15T10:08:23.642Z",
+    "Location": {
+      "latitude": -2.82,
+      "longitude": 5.02,
+      "road": "East-Approach",
+      "lane": 2
+    },
+    "Event Details": {
+      "cause": "red_light_running_collision",
+      "severity": "moderate",
+      "sim_time_s": 112.7,
+      "involved": [
+        "flow_east_left_early.0",
+        "flow_south_straight_early.13"
+      ],
+      "blocked": 15,
+      "witnesses": 15,
+      "speed_kmh": 0.2
+    }
+  },
+  "signature": {
+    "sid": "0000000100065b82bb21001d1bb3147c",
+    "R": [
+      "0x3ddbcf3742514860b458c6e586c421e66cd53858f9b851e099c423c28ca115d0",
+      "0x1624cc6cb1c7d7740aa3eb1b4164230ea482254740b337cc0563f72f348775ee"
+    ],
+    "Vp": [
+      "0xcfb886c8d0bd359825a5a631fbfe97f692b46845d9e6093529bd88c0012213f0",
+      "0x8ada3ab901b96be09e6c90bc55fd60a937f82ce65897f241c785fd421dbde07b"
+    ],
+    "z": "0xc1477fe3ebf29e8f512615e92d09882500f44d5da93ee91acfaf53bcad5329a0",
+    "bytes": 585
+  },
+  "tracing": {
+    "success": true,
+    "correct": true,
+    "subsets_tested": 4436,
+    "search_space": 4845,
+    "traced_indices": [
+      8,
+      11,
+      12,
+      17
+    ],
+    "ground_truth_indices": [
+      8,
+      11,
+      12,
+      17
+    ],
+    "traced_vehicles": [
+      {
+        "index": 8,
+        "vid": "VEH-008",
+        "plate": "粤T969HL",
+        "sumo_id": "flow_east_straight_early.1"
+      },
+      {
+        "index": 11,
+        "vid": "VEH-011",
+        "plate": "沪R715CP",
+        "sumo_id": "flow_east_straight_early.4"
+      },
+      {
+        "index": 12,
+        "vid": "VEH-012",
+        "plate": "渝A466DB",
+        "sumo_id": "flow_east_straight_early.5"
+      },
+      {
+        "index": 17,
+        "vid": "VEH-017",
+        "plate": "豫S698DV",
+        "sumo_id": "flow_north_straight_early.8"
+      }
+    ]
+  }
+}
